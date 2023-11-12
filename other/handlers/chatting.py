@@ -7,7 +7,9 @@ def get_text_messages_private(message: Message, bot: TeleBot) -> None:
     if message_low == "привет":
         bot.send_message(message.from_user.id,
                          "Поставьте меня в ваш чат, сделайте администратором и я к вашим услугам")
-
+    elif message_low == 'дурень':
+        bot.send_message(message.from_user.id,
+                    "!!!Ты поплатишься за это!!!")
     else:
         print('Correct', str(bot.get_state(message.from_user.id, message.chat.id)))
         bot.send_message(message.from_user.id,

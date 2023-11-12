@@ -46,10 +46,10 @@ if __name__ == '__main__':
         version_command, commands=['version'], pass_bot=True
     )
     bot.register_message_handler(
-        get_text_messages_private, content_types=['text'], chatType='private', state=None, pass_bot=True
+        get_text_messages_private, content_types=['text'], chatType='private', pass_bot=True
     )
     bot.register_message_handler(
-        get_text_message_group, content_types=['text'], chatType='group', state=None, pass_bot=True
+        get_text_message_group, content_types=['text'], chatType='group', pass_bot=True
     )
 
     bot.infinity_polling()

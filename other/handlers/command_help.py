@@ -6,7 +6,8 @@ def help_command(message: Message, bot: TeleBot) -> None:
      /help - отвечающая за вывод списка команд 
      /start- отвечающая за начало работы бота 
      /version - показывает актуальную версию и что в ней есть
-     /calculator - считает числа, простейший калькулятор'''
+     /calculator - считает числа, простейший калькулятор
+     /stop - выйти из зацикленных функций'''
 
     if message.chat.type == 'private':
         bot.send_message(message.from_user.id, text)

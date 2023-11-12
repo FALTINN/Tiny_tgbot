@@ -19,7 +19,6 @@ class checking_state(AdvancedCustomFilter):
         print('State Check')
         if text == '*': return True
         
-        # needs to work with callbackquery
         if isinstance(message, types.Message):
             chat_id = message.chat.id
             user_id = message.from_user.id
@@ -30,7 +29,6 @@ class checking_state(AdvancedCustomFilter):
             user_id = message.from_user.id
             message = message.message
 
-        
         
 
         if isinstance(text, list):
