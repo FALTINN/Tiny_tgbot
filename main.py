@@ -28,6 +28,9 @@ if __name__ == '__main__':
 
     # Регистрируем хэндлеры
     bot.register_message_handler(
+        StopCommand, commands=['stop'], pass_bot=True
+    )
+    bot.register_message_handler(
         start_command, commands=['start'], pass_bot=True
     )
     bot.register_message_handler(
@@ -41,9 +44,6 @@ if __name__ == '__main__':
     )
     bot.register_message_handler(
         version_command, commands=['version'], pass_bot=True
-    )
-    bot.register_message_handler(
-        StopCommand, commands=['stop'], pass_bot=True
     )
     bot.register_message_handler(
         get_text_messages_private, content_types=['text'], chatType='private', state=None, pass_bot=True
