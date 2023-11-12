@@ -9,6 +9,7 @@ def get_text_messages_private(message: Message, bot: TeleBot) -> None:
                          "Поставьте меня в ваш чат, сделайте администратором и я к вашим услугам")
 
     else:
+        print('Correct', str(bot.get_state(message.from_user.id, message.chat.id)))
         bot.send_message(message.from_user.id,
                          "Я тебя не понимаю. Напиши /help.")
 

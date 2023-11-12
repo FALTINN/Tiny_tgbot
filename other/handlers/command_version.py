@@ -2,9 +2,8 @@ from telebot import TeleBot
 from telebot.types import Message
 
 def version_command(message: Message, bot:TeleBot) -> None:
-    text = '''Актуальная версия бота: 0.1.1
-    В этой версии обновлена работа некоторых команд, изменены небольшие мелочи
-    И...... Добавлен калькулятор(хоть и простейший)'''
+    text = '''Актуальная версия бота: 0.1.2
+    В этой версии был пофикшен баг и бот работоспособоный.'''
 
     if message.chat.type == 'private':
         bot.send_message(message.from_user.id, text)

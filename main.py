@@ -7,23 +7,24 @@ from other.handlers.command_help import help_command
 from other.handlers.command_version import version_command
 from other.handlers.command_calculator import calculator_command
 from other.handlers.command_calculator import calculator_count
+from other.handlers.command_stop import StopCommand
+from other.classes.MyState import MyState
 
 from telebot import TeleBot
 from other import config
+from telebot.handler_backends import State, StatesGroup
+from telebot.storage import StateMemoryStorage
 
-class My_Bot(TeleBot):
-    def __init__(self, config):
-        self.user_dict = {
-            'state': None
-        }
 
 
 if __name__ == '__main__':
-    bot = My_Bot(config.token)
+    state_storage = StateMemoryStorage()
+    bot = TeleBot(config.token, state_storage=state_storage)
 
     # Добавляем свои фильтры
+    bot.add_custom_filter(checking_state(bot))
     bot.add_custom_filter(check_the_chat_type())
-    bot.add_custom_filter(checking_state())
+
 
     # Регистрируем хэндлеры
     bot.register_message_handler(
@@ -33,7 +34,7 @@ if __name__ == '__main__':
         calculator_command, commands=['calculator'], pass_bot=True
     )
     bot.register_message_handler(
-        calculator_count, content_types=['text'], state_user='calculator', pass_bot=True
+        calculator_count, content_types=['text'], state=MyState.Calculator, pass_bot=True
     )
     bot.register_message_handler(
         help_command, commands=['help'], pass_bot=True
@@ -42,10 +43,13 @@ if __name__ == '__main__':
         version_command, commands=['version'], pass_bot=True
     )
     bot.register_message_handler(
-        get_text_messages_private, content_types=['text'], chatType='private', pass_bot=True
+        StopCommand, commands=['stop'], pass_bot=True
     )
     bot.register_message_handler(
-        get_text_message_group, content_types=['text'], chatType='group', pass_bot=True
+        get_text_messages_private, content_types=['text'], chatType='private', state=None, pass_bot=True
+    )
+    bot.register_message_handler(
+        get_text_message_group, content_types=['text'], chatType='group', state=None, pass_bot=True
     )
 
     bot.infinity_polling()

@@ -6,4 +6,5 @@ class check_the_chat_type(SimpleCustomFilter):
     key = 'chatType'
 
     def check(self, message: Message) -> str:
+        print('Chat Check')
         return message.chat.type
