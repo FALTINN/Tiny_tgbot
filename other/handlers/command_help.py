@@ -7,7 +7,10 @@ def help_command(message: Message, bot: TeleBot) -> None:
      /start- отвечающая за начало работы бота 
      /version - показывает актуальную версию и что в ней есть
      /calculator - считает числа, простейший калькулятор
-     /stop - выйти из зацикленных функций'''
+     /stop - выйти из зацикленных функций
+     /add - увеличить письку
+     /get - узнать длину письки
+     /time - узнать время до увеличения письки'''
 
     if message.chat.type == 'private':
         bot.send_message(message.from_user.id, text)
