@@ -38,7 +38,7 @@ def calculator_count(message: Message, bot: TeleBot) -> None:
     if message.chat.type == 'private':
 
         try:
-            if message.text[0] == '!':
+            if message.text[0] == '!' and int(message.text[1:]) < 30:
                 bot.send_message(message.from_user.id, SubFactorial(int(message.text[1:])))
             elif message.text[len(message.text)-1] == '!':
                 bot.send_message(message.from_user.id, Factorial(int(message.text[:len(message.text)-1])))
@@ -52,7 +52,7 @@ def calculator_count(message: Message, bot: TeleBot) -> None:
     else:
         
         try:
-            if message.text[0] == '!':
+            if message.text[0] == '!' and int(message.text[1:]) < 40:
                 bot.reply_to(message, SubFactorial(int(message.text[1:])))
             elif message.text[len(message.text)-1] == '!':
                 bot.reply_to(message, Factorial(int(message.text[:len(message.text)-1])))

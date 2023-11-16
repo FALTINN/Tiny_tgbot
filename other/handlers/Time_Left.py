@@ -2,6 +2,7 @@ from telebot import TeleBot
 from telebot.types import Message
 import time
 import sqlite3
+from dateutil.parser import parse
 
 
 def TimeLeft(message: Message, bot: TeleBot):
@@ -18,8 +19,10 @@ def TimeLeft(message: Message, bot: TeleBot):
 
         if TimeLastTake != 0 and (round(time.time() - TimeLastTake)) < 36000:
             Time = round(36000 - (time.time() - TimeLastTake))
-            Time = f"{Time//3600}:{Time%3600//60}:{Time%3600%60}"
-            
+            Time = f"{Time//3600}:{Time%3600//60}"
+            Time = str(parse(Time).time())
+            Time = Time[:len(Time)-3]
+               
             if message.chat.type == 'private':
                 bot.send_message(message.from_user.id, f"Времени до увеличения письки осталось {Time}")
 
@@ -28,17 +31,23 @@ def TimeLeft(message: Message, bot: TeleBot):
         
         elif (round(time.time() - TimeLastTake)) > 36000 and TimeLastTake != 0:
             if message.chat.type == 'private':
-                bot.send_message(message.from_user.id, f"Вы уже можете увеличить письку")
+                bot.send_message(message.from_user.id, "Вы уже можете увеличить письку")
 
             else:
                 bot.reply_to(message, f"{message.from_user.first_name}, Вы уже можете увеличить письку")
 
         else:
             if message.chat.type == 'private':
-                bot.send_message(message.from_user.id, f"Вы ещё не увеличивали письку")
+                bot.send_message(message.from_user.id, "Вы ещё не увеличивали письку")
 
             else:
                 bot.reply_to(message, f"{message.from_user.first_name}, Вы ещё не увеличивали письку")
+    else:
+        if message.chat.type == 'private':
+            bot.send_message(message.from_user.id, "Вы еще не зарегистрированы")
+
+        else:
+            bot.reply_to(message, f"{message.from_user.first_name}, Вы ещё не зарегистрированы")
 
     connection.commit()
     connection.close()
