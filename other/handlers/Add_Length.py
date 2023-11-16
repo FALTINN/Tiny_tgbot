@@ -21,11 +21,16 @@ def AddLength(message: Message, bot: TeleBot):
         Added_number = randint(1, 10)
         Sum = Added_number + cursor.fetchall()[0][0]
         cursor.execute("UPDATE Loot SET Length = ?, TimeLastTake = ? where Id_User = ?", (Sum, round(time.time()), message.from_user.id))
+
+        if Added_number == 1: Centimeter = "сантиметр"
+        elif Added_number >= 2 and Added_number <= 4: Centimeter = "сантиметра"
+        else: Centimeter = "сантиметров"
+        
         if message.chat.type == 'private':
-            bot.send_message(message.from_user.id, f"Твоя писька увеличилась на {Added_number} сантиметров")
+            bot.send_message(message.from_user.id, f"Твоя писька увеличилась на {Added_number} {Centimeter}")
 
         else:
-            bot.reply_to(message, f"{message.from_user.first_name}, твоя писька увеличилась на {Added_number} сантиметров")
+            bot.reply_to(message, f"{message.from_user.first_name}, твоя писька увеличилась на {Added_number} {Centimeter}")
     else:
         if message.chat.type == 'private':
             bot.send_message(message.from_user.id, "Подожди еще немного")
