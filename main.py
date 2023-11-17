@@ -11,6 +11,7 @@ from other.handlers.command_stop import StopCommand
 from other.handlers.Add_Length import AddLength
 from other.handlers.Get_Length import GetLength
 from other.handlers.Time_Left import TimeLeft
+from other.handlers.Get_Top import GetTop
 from other.classes.MyState import MyState
 
 from telebot import TeleBot
@@ -56,6 +57,9 @@ if __name__ == '__main__':
     )
     bot.register_message_handler(
         TimeLeft, commands=['time'], pass_bot=True
+    )
+    bot.register_message_handler(
+        GetTop, commands=['top'], pass_bot=True
     )
     bot.register_message_handler(
         get_text_messages_private, content_types=['text'], chatType='private', pass_bot=True

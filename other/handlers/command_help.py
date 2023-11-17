@@ -10,7 +10,8 @@ def help_command(message: Message, bot: TeleBot) -> None:
      /stop - выйти из зацикленных функций
      /add - увеличить письку
      /get - узнать длину письки
-     /time - узнать время до увеличения письки'''
+     /time - узнать время до увеличения письки
+     /top - показывает топ игроков'''
 
     if message.chat.type == 'private':
         bot.send_message(message.from_user.id, text)

@@ -11,9 +11,20 @@ def AddLength(message: Message, bot: TeleBot):
 
     cursor.execute("SELECT Id_User from Loot")
     users = cursor.fetchall()
+    cursor.execute("SELECT BaseId from Names")
+    users2 = cursor.fetchall()
 
-    if not(message.from_user.id in [ user[0] for user in users]):
+
+    if not(message.from_user.id in [user[0] for user in users]):
         cursor.execute("INSERT INTO Loot (Id_User, Length, TimeLastTake) VALUES (?, ?, ?)", (message.from_user.id, 0, 0))
+
+
+    cursor.execute(f"SELECT Id from Loot where Id_User = {message.from_user.id}")
+    Id = cursor.fetchall()
+
+
+    if not(Id[0][0] in [user[0] for user in users2]):
+        cursor.execute("INSERT INTO Names (BaseId, UserName) VALUES (?, ?)", (Id[0][0], message.from_user.full_name))
     
     cursor.execute(f"SELECT TimeLastTake from Loot where Id_User = {message.from_user.id}")
     if round(time.time()) - int(cursor.fetchall()[0][0]) >= 36000:
