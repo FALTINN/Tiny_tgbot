@@ -1,22 +1,8 @@
 from telebot import TeleBot
 from telebot.types import Message
 from other.classes.MyState import MyState
-
-
-def Factorial(number):
-    if number == 1:
-        return 1
-    else:
-        return number * Factorial(number - 1)
-    
-
-def SubFactorial(number):
-    if number == 0:
-        return 1
-    elif number == 1:
-        return 0
-    else:
-        return (number-1) * (SubFactorial(number-1) + SubFactorial(number-2))
+import math
+from sympy import subfactorial
 
 
 def calculator_command(message: Message, bot: TeleBot) -> None:
@@ -38,10 +24,10 @@ def calculator_count(message: Message, bot: TeleBot) -> None:
     if message.chat.type == 'private':
 
         try:
-            if message.text[0] == '!' and int(message.text[1:]) < 30:
-                bot.send_message(message.from_user.id, SubFactorial(int(message.text[1:])))
+            if message.text[0] == '!' and int(message.text[1:]) < 100:
+                bot.send_message(message.from_user.id, subfactorial(int(message.text[1:])))
             elif message.text[len(message.text)-1] == '!':
-                bot.send_message(message.from_user.id, Factorial(int(message.text[:len(message.text)-1])))
+                bot.send_message(message.from_user.id, math.factorial(int(message.text[:len(message.text)-1])))
             else:
                 bot.send_message(message.from_user.id, eval(message.text))
 
@@ -52,10 +38,10 @@ def calculator_count(message: Message, bot: TeleBot) -> None:
     else:
         
         try:
-            if message.text[0] == '!' and int(message.text[1:]) < 40:
-                bot.reply_to(message, SubFactorial(int(message.text[1:])))
+            if message.text[0] == '!' and int(message.text[1:]) < 100:
+                bot.reply_to(message, subfactorial(int(message.text[1:])))
             elif message.text[len(message.text)-1] == '!':
-                bot.reply_to(message, Factorial(int(message.text[:len(message.text)-1])))
+                bot.reply_to(message, math.factorial(int(message.text[:len(message.text)-1])))
             else:
                 bot.reply_to(message, eval(message.text))
 
