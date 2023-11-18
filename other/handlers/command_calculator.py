@@ -6,7 +6,7 @@ from sympy import subfactorial
 
 
 def calculator_command(message: Message, bot: TeleBot) -> None:
-    text = 'Здравствуй друг, это калькулятор в боте, пока что простейший, поддерживает 6 основных действий\nВведи математические выражение и я выдам тебе ответ'
+    text = 'Здравствуй друг, это калькулятор в боте, пока что простейший, поддерживает 6 основных действий\nВведи математические выражение и я выдам тебе ответ. Чтобы выйти из калькулятора, используй команду stop'
 
     if message.chat.type == 'private':
         bot.send_message(message.from_user.id, text)

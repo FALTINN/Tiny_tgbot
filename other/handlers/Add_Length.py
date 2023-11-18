@@ -25,6 +25,15 @@ def AddLength(message: Message, bot: TeleBot):
 
     if not(Id[0][0] in [user[0] for user in users2]):
         cursor.execute("INSERT INTO Names (BaseId, UserName) VALUES (?, ?)", (Id[0][0], message.from_user.full_name))
+
+
+    cursor.execute(f"SELECT Names.UserName from Loot inner join Names on Loot.Id = Names.BaseId where Loot.Id_User = {message.from_user.id}")
+    Name = cursor.fetchall()[0][0]
+
+
+    if not(message.from_user.full_name == Name):
+        cursor.execute("UPDATE Names SET UserName = (?) where Id = (?)", (message.from_user.full_name, Id[0][0]))
+
     
     cursor.execute(f"SELECT TimeLastTake from Loot where Id_User = {message.from_user.id}")
     if round(time.time()) - int(cursor.fetchall()[0][0]) >= 36000:
