@@ -33,7 +33,7 @@ if __name__ == '__main__':
 
     # Регистрируем хэндлеры
     bot.register_message_handler(
-        StopCommand, commands=['stop'], pass_bot=True
+        StopCommand, commands=['stop'], chatType='group', pass_bot=True
     )
     bot.register_message_handler(
         start_command, commands=['start'], pass_bot=True

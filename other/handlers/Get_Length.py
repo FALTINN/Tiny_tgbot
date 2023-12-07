@@ -18,18 +18,12 @@ def GetLength(message: Message, bot: TeleBot):
     Length = cursor.fetchall()
     Length = str(Length[0][0])
 
-    Centimeter = "сантиметрам"
-    if Length == '0': Centimeter = "сантиметров"
-    elif Length[len(Length)-1] == '1':
-        if len(Length) > 1:
-            if Length[len(Length)-2] != '1': Centimeter = "сантиметру"
-        else: Centimeter = "сантиметру"
 
     if message.chat.type == 'private':
-        bot.send_message(message.from_user.id, f"Твоя писька равна {Length} {Centimeter}")
+        bot.send_message(message.from_user.id, f"Твоя писька равна {Length}см")
 
     else:
-        bot.reply_to(message, f"{message.from_user.first_name}, твоя писька равна {Length} {Centimeter}")
+        bot.reply_to(message, f"{message.from_user.first_name}, твоя писька равна {Length}см")
 
     connection.commit()
     connection.close()
