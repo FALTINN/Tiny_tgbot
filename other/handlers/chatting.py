@@ -25,5 +25,5 @@ def get_text_message_group(message: Message, bot: TeleBot) -> None:
         bot.reply_to(message,
                     "!!!Ты поплатишься за это!!!")
     else:
-        bot.send_message(message.chat.id,
+        bot.reply_to(message,
                          "Я тебя не понимаю. Напиши /help.")

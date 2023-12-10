@@ -32,14 +32,18 @@ def Currency(message: Message, bot: TeleBot):
             markup = types.ReplyKeyboardRemove()
             StopCommand(message, bot)
             bot.send_message(message.from_user.id,"Вы вышли из просмотра курса валют",reply_markup=markup)
+        else:
+            bot.send_message(message.from_user.id, "Что то не то")
 
     else:
         if newMessage == 'доллар':
-            bot.reply_to(message.from_user.id, f"Курс доллара по данным ЦБ на данный момент равен {round(currency['Valute']['USD']['Value'], 2)}₽")
+            bot.reply_to(message, f"Курс доллара по данным ЦБ на данный момент равен {round(currency['Valute']['USD']['Value'], 2)}₽")
         elif newMessage == 'евро':
-            bot.reply_to(message.from_user.id, f"Курс евро по данным ЦБ на данный момент равен {round(currency['Valute']['EUR']['Value'], 2)}₽")
+            bot.reply_to(message, f"Курс евро по данным ЦБ на данный момент равен {round(currency['Valute']['EUR']['Value'], 2)}₽")
         elif newMessage == 'фунт' or message.text == 'Фунт Стерлингов' or message.text == 'Британский Фунт':
-            bot.reply_to(message.from_user.id, f"Курс фунта стерлингов по данным ЦБ на данный момент равен {round(currency['Valute']['GBP']['Value'], 2)}₽")
+            bot.reply_to(message, f"Курс фунта стерлингов по данным ЦБ на данный момент равен {round(currency['Valute']['GBP']['Value'], 2)}₽")
         elif newMessage == 'назад':
             StopCommand(message, bot)
             bot.reply_to(message, 'Вы вышли из просмотра курса валют')
+        else:
+            bot.reply_to(message, "Что то не то")

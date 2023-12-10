@@ -36,7 +36,7 @@ if __name__ == '__main__':
         StopCommand, commands=['stop'], chatType='group', pass_bot=True
     )
     bot.register_message_handler(
-        start_command, commands=['start'], pass_bot=True
+        help_command, commands=['help'], pass_bot=True
     )
     bot.register_message_handler(
         calculator_command, commands=['calculator'], pass_bot=True
@@ -45,7 +45,13 @@ if __name__ == '__main__':
         calculator_count, content_types=['text'], state=MyState.Calculator, pass_bot=True
     )
     bot.register_message_handler(
-        help_command, commands=['help'], pass_bot=True
+        commandExchangeRate, commands=['currency'], pass_bot=True
+    )
+    bot.register_message_handler(
+        Currency, content_types=['text'], state=MyState.ExchangeRate, pass_bot=True
+    )
+    bot.register_message_handler(
+        start_command, commands=['start'], pass_bot=True
     )
     bot.register_message_handler(
         version_command, commands=['version'], pass_bot=True
@@ -61,12 +67,6 @@ if __name__ == '__main__':
     )
     bot.register_message_handler(
         GetTop, commands=['top'], pass_bot=True
-    )
-    bot.register_message_handler(
-        commandExchangeRate, commands=['currency'], pass_bot=True
-    )
-    bot.register_message_handler(
-        Currency, content_types=['text'], state=MyState.ExchangeRate, pass_bot=True
     )
     bot.register_message_handler(
         get_text_messages_private, content_types=['text'], chatType='private', pass_bot=True
