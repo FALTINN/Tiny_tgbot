@@ -2,6 +2,7 @@ from telebot import TeleBot, types
 from telebot.types import Message
 from other.classes.MyState import MyState
 from other.handlers.command_stop import StopCommand
+from other.handlers.command_help import help_command_currency
 from other.markups import Valute_keyboard
 import requests
 
@@ -13,7 +14,7 @@ def commandExchangeRate(message: Message, bot: TeleBot):
         bot.send_message(message.from_user.id, text, reply_markup=Valute_keyboard)
 
     else:
-        bot.reply_to(message, f'{text}. Чтобы выйти используйте команду stop или слово "назад"')
+        bot.reply_to(message, f'{text}. Чтобы выйти используйте команду stop или слово "назад". Чтобы узнать про возможности функции, используйте команду help_currency или слово "помощь"')
 
     bot.set_state(message.from_user.id, MyState.ExchangeRate, message.chat.id)
 
@@ -32,6 +33,8 @@ def Currency(message: Message, bot: TeleBot):
             markup = types.ReplyKeyboardRemove()
             StopCommand(message, bot)
             bot.send_message(message.from_user.id,"Вы вышли из просмотра курса валют",reply_markup=markup)
+        elif newMessage == 'помощь':
+            help_command_currency(message, bot)
         else:
             bot.send_message(message.from_user.id, "Что то не то")
 
@@ -45,5 +48,7 @@ def Currency(message: Message, bot: TeleBot):
         elif newMessage == 'назад':
             StopCommand(message, bot)
             bot.reply_to(message, 'Вы вышли из просмотра курса валют')
+        elif newMessage == 'помощь':
+            help_command_currency(message, bot)
         else:
             bot.reply_to(message, "Что то не то")

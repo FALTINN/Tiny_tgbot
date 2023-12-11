@@ -3,6 +3,7 @@ from telebot.types import Message
 from other.classes.MyState import MyState
 from other.markups import Cancel_keyboard
 from other.handlers.command_stop import StopCommand
+from other.handlers.command_help import help_command_calculator
 import math
 from sympy import subfactorial
 
@@ -14,14 +15,14 @@ def calculator_command(message: Message, bot: TeleBot) -> None:
         bot.send_message(message.from_user.id, text, reply_markup=Cancel_keyboard)
 
     else:
-        bot.reply_to(message, f'{text}. Чтобы выйти используйте команду stop или слово "назад"')
+        bot.reply_to(message, f'{text}. Чтобы выйти используйте команду stop или слово "назад". Чтобы узнать про возможности функции, используйте команду help_calculator или слово "помощь"')
 
     bot.set_state(message.from_user.id, MyState.Calculator, message.chat.id)
     print('Correct', bot.current_states.get_state(message.chat.id, message.from_user.id))
 
 
 def calculator_count(message: Message, bot: TeleBot) -> None:
-    text_2 = 'Введи пример:(только цифры и +, -, *, /, !, **)'
+    text_2 = 'Введи пример:(только цифры и +, -, *, /, !, ** и др.)'
     newMessage = message.text.lower()
 
     if message.chat.type == 'private':
@@ -35,6 +36,8 @@ def calculator_count(message: Message, bot: TeleBot) -> None:
                 markup = types.ReplyKeyboardRemove()
                 StopCommand(message, bot)
                 bot.send_message(message.from_user.id,"Вы вышли из калькулятора",reply_markup=markup)
+            elif newMessage == 'помощь':
+                help_command_calculator(message, bot)
             else:
                 bot.send_message(message.from_user.id, eval(message.text), reply_markup=Cancel_keyboard)
 
@@ -52,6 +55,8 @@ def calculator_count(message: Message, bot: TeleBot) -> None:
             elif newMessage == 'назад':
                 StopCommand(message, bot)
                 bot.reply_to(message, 'Вы вышли из калькулятора')
+            elif newMessage == 'помощь':
+                help_command_calculator(message, bot)
             else:
                 bot.reply_to(message, eval(message.text))
 

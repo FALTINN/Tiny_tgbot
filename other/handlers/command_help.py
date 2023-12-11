@@ -18,3 +18,28 @@ def help_command(message: Message, bot: TeleBot) -> None:
         bot.send_message(message.from_user.id, text)
     else:
         bot.reply_to(message, text)
+
+
+def help_command_calculator(message: Message, bot: TeleBot):
+    text = """Бот поддерживает базовые операции(+, -, *)
+    Также несколько видов делений: С остатком(/), Без остатка(//), Получение остатка(%)
+    Возведение в степень(**)
+    Получение факториала(! после выражения), субфакториала(! перед выражением)
+    Получение квадратного корня(**0.5)"""
+
+    if message.chat.type == 'private':
+        bot.send_message(message.from_user.id, text)
+    else:
+        bot.reply_to(message, text)
+
+
+def help_command_currency(message: Message, bot: TeleBot):
+    text = """Ты можешь получить курс таких валют, как:
+    Доллар
+    Евро
+    Фунт Стерлингов"""
+
+    if message.chat.type == 'private':
+        bot.send_message(message.from_user.id, text)
+    else:
+        bot.reply_to(message, text)

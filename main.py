@@ -3,10 +3,9 @@ from other.filters.check_state import checking_state
 
 from other.handlers.chatting import get_text_message_group, get_text_messages_private
 from other.handlers.command_start import start_command
-from other.handlers.command_help import help_command
+from other.handlers.command_help import help_command, help_command_calculator, help_command_currency
 from other.handlers.command_version import version_command
-from other.handlers.command_calculator import calculator_command
-from other.handlers.command_calculator import calculator_count
+from other.handlers.command_calculator import calculator_command, calculator_count
 from other.handlers.command_stop import StopCommand
 from other.handlers.Add_Length import AddLength
 from other.handlers.Get_Length import GetLength
@@ -39,13 +38,19 @@ if __name__ == '__main__':
         help_command, commands=['help'], pass_bot=True
     )
     bot.register_message_handler(
-        calculator_command, commands=['calculator'], pass_bot=True
+        calculator_command, commands=['calculator'], state=None, pass_bot=True
+    )
+    bot.register_message_handler(
+        help_command_calculator, commands=['help_calculator'], state=MyState.Calculator, pass_bot=True
     )
     bot.register_message_handler(
         calculator_count, content_types=['text'], state=MyState.Calculator, pass_bot=True
     )
     bot.register_message_handler(
-        commandExchangeRate, commands=['currency'], pass_bot=True
+        commandExchangeRate, commands=['currency'], state=None, pass_bot=True
+    )
+    bot.register_message_handler(
+        help_command_currency, commands=['help_currency'], state=MyState.ExchangeRate, pass_bot=True
     )
     bot.register_message_handler(
         Currency, content_types=['text'], state=MyState.ExchangeRate, pass_bot=True
