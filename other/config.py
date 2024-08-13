@@ -1,1 +1,2 @@
-token = 'Your Token'
+token = ''
+path_to_db = ''
